@@ -5,6 +5,9 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+
 export default function DashboardPage() {
   const router = useRouter();
   
@@ -20,14 +23,21 @@ export default function DashboardPage() {
 
   // Fetch counts for users and records
   useEffect(() => {
-    // Simulate an API call to get total users and records
     const fetchCounts = async () => {
-      // Mock API data (replace with actual API call)
-      const usersCount = 120; // Example user count
-      const recordsCount = 350; // Example records count
+      try {
+        // Fetch total users
+        const userResponse = await fetch(`${API_URL}/api/v1/user/total`);
+        const userData = await userResponse.json();
+        // Fetch total records
+        const recordResponse = await fetch(`${API_URL}/api/v1/record/total`);
+        const recordData = await recordResponse.json();
 
-      setTotalUsers(usersCount);
-      setTotalRecords(recordsCount);
+        // Set the data to state
+        setTotalUsers(userData.totalUsers || 0);
+        setTotalRecords(recordData.totalRecords || 0);
+      } catch (error) {
+        console.error('Error fetching counts:', error);
+      }
     };
 
     fetchCounts();
