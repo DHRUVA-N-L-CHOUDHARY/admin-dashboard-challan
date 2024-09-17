@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff;  /* Background color */
+  --foreground: #171717;  /* Text color */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +19,16 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+button {
+  background-color: black;
+  color: white;
+}
+
+button:hover {
+  background-color: #333333; /* Slightly darker for hover */
+}
+
 
 @layer utilities {
   .text-balance {
